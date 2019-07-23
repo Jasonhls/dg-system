@@ -18,6 +18,7 @@ public class SystemController {
 
     @PostMapping("login")
     public String login(@RequestParam("account") String account, @RequestParam("pasw") String pasw){
+        log.info("测试master提交权限");
         authService.login(account, pasw);
         return "success";
     }
