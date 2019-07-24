@@ -7,29 +7,25 @@ roses:
     trace: true
     level: error,info
 
-jwt:
-  secret: abcdefg
-  expiration: 82800
-
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://192.168.11.159:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC
     username: root
     password: 123456
-#  kafka:
-#    bootstrap-servers: 127.0.0.1:9092
-#    listener:
-#      type: BATCH
-#    producer:
-#      batchSize: 500
-#      keySerializer: org.apache.kafka.common.serialization.StringSerializer
-#      valueSerializer: com.dg.mall.kernel.logger.serizlizer.FastjsonKafkaSerializer
-#    consumer:
-#      group-id: commonLogList
-#      keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      valueDeserializer: com.dg.mall.biz.log.core.serilizer.FastjsonKafkaDeserializer
-#      auto-offset-reset: earliest
-#      maxPollRecords: 500
+  kafka:
+    bootstrap-servers: 192.168.11.159:9092
+    listener:
+      type: BATCH
+    producer:
+      batchSize: 500
+      keySerializer: org.apache.kafka.common.serialization.StringSerializer
+      valueSerializer: com.dg.mall.logger.serizlizer.FastjsonKafkaSerializer
+    consumer:
+      group-id: commonLogList
+      keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+      valueDeserializer: com.dg.mall.logger.serizlizer.FastjsonKafkaSerializer
+      auto-offset-reset: earliest
+      maxPollRecords: 500
 
 mybatis-plus:
   typeAliasesPackage: com.dg.mall.system.modular.entity
