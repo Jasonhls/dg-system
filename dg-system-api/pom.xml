@@ -18,19 +18,6 @@
     <name>dg-system-api</name>
     <description>系统管理，包含权限管理，组织架构管理，可同时集成文件，字典，日志管理</description>
 
-<!--    <dependencies>-->
-<!--        <dependency>-->
-<!--            <groupId>com.dg.mall</groupId>-->
-<!--            <artifactId>dg-model</artifactId>-->
-<!--            <version>${dg.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.dg.mall</groupId>-->
-<!--            <artifactId>dg-core</artifactId>-->
-<!--            <version>${dg.version}</version>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
-
     <build>
         <finalName>dg-system-api</finalName>
         <plugins>

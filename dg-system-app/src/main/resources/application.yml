@@ -2,9 +2,6 @@ spring:
   application:
     name: dg-system
   profiles:
-    active: test
-  cloud:
-    config:
-      profile: test
-      label: master
+    active: local
+
 
