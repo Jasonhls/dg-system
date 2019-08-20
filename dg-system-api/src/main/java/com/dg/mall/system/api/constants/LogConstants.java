@@ -13,41 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dg.mall.system.core.constants;
+package com.dg.mall.system.api.constants;
+
 
 /**
- * 系统管理常量
- *
- * @author fengshuonan
- * @date 2018-08-26-下午4:00
- */
-public interface SystemConstants {
+ * @Author hn
+ * @Description: kafka消息队列的常量
+ * @Date 2019/8/8 10:00
+ * @Version V1.0
+ **/
 
-    /**
-     * 登录用户缓存的前缀
-     */
-    String LOGIN_USER_CACHE_PREFIX = "LOGIN_";
+public interface LogConstants {
 
-    /**
-     * 登录超时时间（单位：秒）
-     */
-    Long DEFAULT_LOGIN_TIME_OUT_SECS = 3600L;
-
-    /**
-     * 分页  默认当前页
-     */
-    Long DEFAULT_CURRENT_PAGE = 1L;
-
-
-    /**
-     * 分页  默认每页大小
-     */
-    Long DEFAULT_PAGE_SIZE = 15L;
-
-    
-    /**
-     * 用户删除状态
-     */
-    Integer STATUS_DEL =3;
+    String LOG_TOPIC = "SYS_LOG_TOPIC";
 
 }

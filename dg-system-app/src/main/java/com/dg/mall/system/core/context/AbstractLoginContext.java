@@ -13,41 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dg.mall.system.core.constants;
+package com.dg.mall.system.core.context;
+
 
 /**
- * 系统管理常量
- *
- * @author fengshuonan
- * @date 2018-08-26-下午4:00
+ * 快速获取登录信息上下文
  */
-public interface SystemConstants {
+public interface AbstractLoginContext {
 
     /**
-     * 登录用户缓存的前缀
+     * 获取当前用户的token
      */
-    String LOGIN_USER_CACHE_PREFIX = "LOGIN_";
+    String getCurrentUserToken();
 
     /**
-     * 登录超时时间（单位：秒）
+     * 获取当前用户
      */
-    Long DEFAULT_LOGIN_TIME_OUT_SECS = 3600L;
-
-    /**
-     * 分页  默认当前页
-     */
-    Long DEFAULT_CURRENT_PAGE = 1L;
-
-
-    /**
-     * 分页  默认每页大小
-     */
-    Long DEFAULT_PAGE_SIZE = 15L;
-
-    
-    /**
-     * 用户删除状态
-     */
-    Integer STATUS_DEL =3;
-
+    <T> T getLoginUser();
 }

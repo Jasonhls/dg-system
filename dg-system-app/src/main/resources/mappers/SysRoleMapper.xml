@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dg.mall.system.mapper.SysRoleMapper">
+
+    <resultMap id="roleMap" type="com.dg.mall.system.entity.SysRole">
+        <result property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDescription" column="role_description"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="createdUser" column="created_user"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="updatedUser" column="updated_user"/>
+        <result property="isUsed" column="is_used"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <sql id="baseSql">r.role_id,r.role_name,r.role_description,r.created_time,r.created_user,r.updated_time,r.updated_user,r.is_used,r.is_deleted</sql>
+
+    <select id="getRoleById" parameterType="java.lang.Integer" resultMap="roleMap">
+        select <include refid="baseSql"/>
+        from dg_sys_role r
+        where r.role_id = #{roleId}
+    </select>
+
+
+    <select id="selectRolesByUserId" parameterType="java.lang.Integer" resultMap="roleMap">
+        select <include refid="baseSql"/>
+        from dg_sys_user_role ur left join dg_sys_role r on r.role_id = ur.role_id
+        where r.is_deleted = '0' and r.is_used = '1' and ur.user_id = #{userId};
+    </select>
+</mapper>

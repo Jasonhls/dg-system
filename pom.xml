@@ -31,43 +31,37 @@
         <module>dg-system-app</module>
     </modules>
 
-        <dependencies>
-            <dependency>
-                <groupId>com.dg.mall</groupId>
-                <artifactId>dg-core</artifactId>
-                <version>${dg.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dg.mall</groupId>
-                <artifactId>dg-jwt</artifactId>
-                <version>${dg.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dg.mall</groupId>
-                <artifactId>dg-logger</artifactId>
-                <version>${dg.version}</version>
-            </dependency>
-<!--            <dependency>-->
-<!--                <groupId>com.dg.mall</groupId>-->
-<!--                <artifactId>dg-validator</artifactId>-->
-<!--                <version>${dg.version}</version>-->
-<!--            </dependency>-->
-            <dependency>
-                <groupId>com.dg.mall</groupId>
-                <artifactId>dg-model</artifactId>
-                <version>${dg.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-            </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.dg.mall</groupId>
+            <artifactId>dg-core</artifactId>
+            <version>${dg.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dg.mall</groupId>
+            <artifactId>dg-jwt</artifactId>
+            <version>${dg.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dg.mall</groupId>
+            <artifactId>dg-logger</artifactId>
+            <version>${dg.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dg.mall</groupId>
+            <artifactId>dg-model</artifactId>
+            <version>${dg.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-jetty</artifactId>
-            </dependency>
-        </dependencies>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+    </dependencies>
 
 
 
@@ -116,19 +110,19 @@
                     <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                <version>1.5</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>sign</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-gpg-plugin</artifactId>-->
+            <!--                <version>1.5</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>verify</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>sign</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>

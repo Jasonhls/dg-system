@@ -16,70 +16,71 @@
 package com.dg.mall.system.api.context;
 
 
-
-import com.dg.mall.model.auth.AbstractLoginUser;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 
 /**
  * 当前用户的登录信息
- *
- * @author fengshuonan
- * @Date 2018/8/22 下午6:19
  */
-@SuppressWarnings("ALL")
 @Data
-public class LoginUser implements AbstractLoginUser {
+public class LoginUser {
 
     /**
-     * 账号id
+     * 主键id
      */
-    private Long accountId;
+    private Integer userId;
 
     /**
-     * 应用id
+     * 手机号/账号
      */
-    private Long appId;
+    private String phone;
 
     /**
-     * 角色id集合
+     * 名称
      */
-    private Set<Long> roleIds;
+    private String name;
 
     /**
-     * 角色编码集合
+     * 性别（1：男 0：女）
      */
-    private Set<Long> roleCodes;
+    private Integer sex;
+
+    private String email;
 
     /**
-     * 可用资源集合
+     * 状态(0:未启用 1：启用  2：冻结  3：删除）
      */
-    private Set<Long> resourceUrls;
+    private Integer status;
+    /**
+     * 头像照片
+     *
+     */
+    private String photo;
 
-    @Override
-    public Long getUserUniqueId() {
-        return accountId;
-    }
+    /**
+     * 是否普通管理员（1：是，0：否）
+     */
+    private Boolean isGeneralAdministrator;
 
-    @Override
-    public Long getAppId() {
-        return appId;
-    }
+    /**
+     * 是否具备审核（1：是，0：否）
+     */
+    private Boolean isToexamine;
 
-    @Override
-    public Set<Long> getRoleIds() {
-        return roleIds;
-    }
+    /**
+     * 备注
+     */
+    private String remark;
 
-    @Override
-    public Set<Long> getRoleCodes() {
-        return roleCodes;
-    }
+    /**
+     * 角色集合
+     */
+    private List<SysRoleDTO> roles;
 
-    @Override
-    public Set<Long> getResourceUrls() {
-        return resourceUrls;
-    }
+    /**
+     * 菜单集合
+     */
+    private List<SysMenuDTO> menus;
 }
