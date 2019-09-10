@@ -16,6 +16,7 @@
 package com.dg.mall.system.api.context;
 
 
+import com.dg.mall.model.enums.YesOrNotEnum;
 import lombok.Data;
 
 import java.util.List;
@@ -41,6 +42,16 @@ public class LoginUser {
      * 名称
      */
     private String name;
+
+    /**
+     * 角色id
+     */
+    private Integer roleId;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
 
     /**
      * 性别（1：男 0：女）
@@ -83,4 +94,9 @@ public class LoginUser {
      * 菜单集合
      */
     private List<SysMenuDTO> menus;
+
+    /**
+     * 超级管理员标示（1：是，0：否）
+     */
+    private Integer superAdministrator = YesOrNotEnum.N.getCode();
 }

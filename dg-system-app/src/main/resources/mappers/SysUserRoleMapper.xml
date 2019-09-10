@@ -3,106 +3,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dg.mall.system.mapper.SysUserRoleMapper">
 
-    <resultMap id="userRoleMap" type="com.dg.mall.system.vo.SysUserRoleVO">
-        <result property="userId" column="user_id"/>
-        <result property="phone" column="phone"/>
-        <result property="password" column="password"/>
-        <result property="name" column="name"/>
-        <result property="jobTitle" column="job_title"/>
-        <result property="sex" column="sex"/>
-        <result property="email" column="email"/>
-        <result property="isDeleted" column="is_deleted"/>
-        <result property="isUsed" column="is_used"/>
-        <result property="isGeneralAdministrator" column="is_general_administrator"/>
-        <result property="isToexamine" column="is_toexamine"/>
-        <result property="remark" column="remark"/>
-        <result property="createTime" column="create_time"/>
-        <result property="createUser" column="create_user"/>
-        <result property="updateTime" column="update_time"/>
-        <result property="updateUser" column="update_user"/>
-        <collection property="sysRole" ofType="com.dg.mall.system.entity.SysRole"  column="{user_id=user_id}" select="selectRoleListByUserId">
-                <result property="roleId" column="role_id"/>
-		        <result property="roleName" column="role_name"/>
-		        <result property="roleDescription" column="role_description"/>
-		        <result property="createdTime" column="created_time"/>
-		        <result property="createdUser" column="created_user"/>
-		        <result property="updatedTime" column="updated_time"/>
-		        <result property="updatedUser" column="updated_user"/>
-		        <result property="isUsed" column="is_used"/>
-		        <result property="isDeleted" column="is_deleted"/>
-        </collection>
-        
-    </resultMap>
-
-
 	 <select id="selectUserPageByRoleId"  resultType="com.dg.mall.system.vo.SysUserRoleVO"  >
 	  select 
 	    su.* ,sr.role_id ,sr.role_name   
 	  from 
 	      dg_sys_user su LEFT JOIN dg_sys_user_role sur on sur.user_id=su.user_id LEFT JOIN dg_sys_role sr  on sur.role_id=sr.role_id 
 	  where 1=1   
-	      and su.is_deleted =0 
+	      and su.is_deleted =0 and <![CDATA[ su.user_id <> #{userVO.userId}]]> 
 	  <if test="userVO.startTime !=null">
 	      and su.create_time &gt;= #{userVO.startTime} 
 	  </if>
 	  <if test="userVO.endTime !=null">
 	      and su.create_time &lt;= #{userVO.endTime} 
 	  </if>
-	   <if test="userVO.phone != null">
-	      and su.phone like CONCAT('%',#{userVO.phone},'%') 
+	   <if test="userVO.roleId !=null">
+	      and sr.role_id = #{userVO.roleId} 
 	  </if>
-	  <if test="userVO.roleId !=null">
-	      and sr.role_id =#{userVO.roleId}
+	  <if test="userVO.conditionRole != null">
+	       and  su.user_id in(select user_id from dg_sys_role ssr ,dg_sys_user_role ssur 
+	       where ssur.role_id =ssr.role_id and ssr.parent_role_id=#{userVO.conditionRole}) 
 	  </if>
 	  <if test="userVO.keyWords != null">
           and (sr.role_name like CONCAT('%',#{userVO.keyWords},'%')  
 		  or su.email  like CONCAT('%',#{userVO.keyWords},'%')  
-		  or su.name  like CONCAT('%',#{userVO.keyWords},'%'))
+		  or su.name  like CONCAT('%',#{userVO.keyWords},'%') 
+		  or su.phone like CONCAT('%',#{userVO.keyWords},'%'))
 	  </if>
+	   order by update_time desc 
 	</select>
 	
-     <!--查询用户信息 	-->
-	 <select id="queryUserListPage"  resultMap="userRoleMap"  >
-	   select 
-	       su.* 
-	    from 
-	     dg_sys_user su   
-	  where 1=1  
-	    and su.is_deleted =0 
-	  <if test="userVO.startTime !=null">
-	      and su.create_time &gt;= #{userVO.startTime} 
-	  </if>
-	  <if test="userVO.endTime !=null">
-	      and su.create_time &lt;= #{userVO.endTime} 
-	  </if>
-	   <if test="userVO.phone != null">
-	      and su.phone like CONCAT('%',#{userVO.phone},'%') 
-	  </if>
-	  <if test="userVO.name !=null">
-	      and su.name  like CONCAT('%',#{userVO.name},'%') 
-	  </if> 
-	    <if test="userVO.email !=null">
-	      and su.email  like CONCAT('%',#{userVO.email},'%') 
-	  </if> 
-	</select>
-     <!-- 查询对应用户id对用角色列表	-->
-    <select id="selectRoleListByUserId"  resultType="com.dg.mall.system.entity.SysRole"  >
-	   select 
-	         sr.* 
-	   from 
-		     dg_sys_role sr  LEFT JOIN dg_sys_user_role	 sur on sur.role_id=sr.role_id 	 
-		  where sur.user_id=#{user_id} and is_deleted=0 
-	</select>
-	
-     <!-- 查询该角色下是否存在普通管理员的用户 -->
-	<select id="queryUserListByRoleId" parameterType="com.dg.mall.system.vo.SysUserRoleVO" resultType="com.dg.mall.system.vo.SysUserRoleVO"   >
-	   select su.* from dg_sys_user su ,dg_sys_user_role sur 
-	   where su.user_id=sur.user_id  and  su.is_general_administrator=1 and is_deleted=0 
-	   <if test="roleId != null">
-	     and sur.role_id=#{roleId}
-	   </if>
-	   
-	</select>
    <!--更新用户对应的角色 -->
    <update id="updateUserRoleByUserId" parameterType="com.dg.mall.system.vo.SysUserRoleVO" >
      update dg_sys_user_role set role_id=#{roleId} ,update_time=#{updateTime},update_user=#{updateUser} where user_id=#{userId};
@@ -120,7 +49,7 @@
 	       and sr.is_used =#{isUsed} 
 	  </if>
 	  <if test="createdUser !=null">
-	      and sr.created_user =#{createdUser}
+	      and sr.created_user =#{createdUser} 
 	  </if>
 	</select>
 	
@@ -137,7 +66,7 @@
      <!-- 根据userid查询用户信息 -->
 	<select id="queryUserByUserId" parameterType="java.lang.Integer"  resultType="com.dg.mall.system.vo.SysUserRoleVO"  >
 	  select 
-	    su.* ,sr.role_id ,sr.role_name   
+	    su.* ,sr.role_id ,sr.role_name ,sr.parent_role_id    
 	  from 
 	      dg_sys_user su LEFT JOIN dg_sys_user_role sur on sur.user_id=su.user_id LEFT JOIN dg_sys_role sr  on sur.role_id=sr.role_id 
 	  where 1=1   
@@ -153,4 +82,29 @@
 		where sur.role_id = #{roleId}
 		and su.is_deleted = 0
 	</update>
+	
+    <update id="updateIsGeneralAdministrator" parameterType="com.dg.mall.system.vo.SysUserRoleVO">
+        update dg_sys_user su set su.is_general_administrator=0,update_time=#{updateTime}, update_user=#{createUser} 
+        where su.is_general_administrator =1 and su.user_id in(select user_id from dg_sys_user_role sur 
+        where sur.role_id=#{roleId}) and <![CDATA[ su.user_id <> #{userId} ]]> 
+	</update>
+	 
+	 <select id="queryUserAdministratorsByRoleId"  parameterType="com.dg.mall.system.vo.SysUserRoleVO"  resultType="Integer">
+       select IFNULL(count(1),0) from dg_sys_user su , dg_sys_user_role sur ,dg_sys_role sr where su.user_id=sur.user_id 
+       and sur.role_id= sr.role_id and su.is_general_administrator =#{isGeneralAdministrator}  and sr.role_id=#{roleId} 
+       and  <![CDATA[ su.user_id<>#{userId}]]> 
+	 </select>
+	 <update id="updateUserRoleById" parameterType="com.dg.mall.system.vo.SysUserRoleVO">
+	    update dg_sys_user_role sur left join dg_sys_user su on su.user_id = sur.user_id  left join dg_sys_role sr on sr.role_id=sur.role_id 
+	     set sur.role_id=#{conditionRole} where su.is_general_administrator=0 and sr.role_id=#{roleId} and <![CDATA[ sur.user_id <> #{userId}]]> 
+	 </update>
+	 
+	<delete id="deleteUserByRoleIds">
+		delete dg_sys_user_role sur
+		where sur.role_id in
+		<foreach item="item" index="index" collection="roleIds"
+				 open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>

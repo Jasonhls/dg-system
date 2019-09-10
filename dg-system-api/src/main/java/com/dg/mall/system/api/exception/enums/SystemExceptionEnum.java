@@ -31,6 +31,7 @@ public enum SystemExceptionEnum implements AbstractBaseExceptionEnum {
      */
     COMMENT_SERVICE_EXCEPTION(1000,"%s"),
     NULL_POINT_EXCEPTION(1001,"%s不能为空"),
+    REPEAT_EXCEPTION(1002,"%s重复"),
     USER_NOT_FOUND(3110, "用户不存在！"),
     USER_TOKEN_ERROR(3112, "token 无效！"),
     USER_STATUS_ERROR(3113, "用户状态异常，请联系管理员"),
@@ -40,15 +41,17 @@ public enum SystemExceptionEnum implements AbstractBaseExceptionEnum {
     USER_PHONE_EFFECTIVE_IS_EXIST(3117, "用户手机号已存在"),
     USER_PHONE_IS_EXIST(3118, "用户手机号已存在，请联系管理员"),
     USER_EMAIL_IS_EXIST(3119, "用户邮箱已经存在"), 
-    USER_ROLE_GENERAL_ADMINISTRATOR(3120, "用户所在角色下必须只有一个普通管理员"), 
+    USER_ROLE_IS_NOT_NULL(3120, "启用普通管理员，角色id必选"), 
     USER_NOT_DELETE(3121, "无法删除当前登录用户"), 
+    USER_ADMINISTRATOR_JURISDICTION(3121,"只有超级管理员才可以启用普通管理员权限"),
+    USER_FIST_ROLE(3121,"启用普通管理员所选角色必须为一级角色"),
     INVALID_PWD(3111, "密码错误！"),
     SERVICE_ERROR(500, "系统异常");
 
     private int code;
     private String message;
 
-    SystemExceptionEnum(int code, String message) {
+    SystemExceptionEnum(int code, String message) { 
         this.code = code;
         this.message = message;
     }

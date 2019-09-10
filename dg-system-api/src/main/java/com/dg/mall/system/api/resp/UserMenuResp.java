@@ -2,7 +2,6 @@ package com.dg.mall.system.api.resp;
 
 import com.dg.mall.system.api.context.SysMenuDTO;
 import lombok.Data;
-
 import java.util.List;
 
 /**

@@ -18,13 +18,18 @@ package com.dg.mall.system.api.feign;
 
 import com.dg.mall.core.reqres.response.ResponseData;
 import com.dg.mall.system.api.context.LoginUser;
+import com.dg.mall.system.api.context.SysMenuDTO;
 import com.dg.mall.system.api.req.LoginReq;
 import com.dg.mall.system.api.req.ToeknReq;
 import com.dg.mall.system.api.resp.UserMenuResp;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * 鉴权服务,提供颁发,校验,注销等方法
@@ -60,13 +65,5 @@ public interface AuthFeignService {
     @PostMapping("getLoginUserByToken")
     LoginUser getLoginUserByToken(@RequestParam("token") String token);
 
-
-    /**
-     * 通过token获取用户权限树信息
-     */
-    @PostMapping("getUserMenuByToken")
-    UserMenuResp getUserMenuByToken(@RequestParam("token") String token);
-
-    
 
 }
