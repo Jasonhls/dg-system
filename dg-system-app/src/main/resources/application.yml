@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: dg-system
-  profiles:
-    active: local
-
